@@ -5,14 +5,7 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import Checkbox from 'material-ui/Checkbox';
 
 
-/*const deleteIconStyle = {
-    hoveredRow: {}, 
-    unhoveredRow: {
-        visibility: 'none',
-    }
-};*/
-
-class Task extends Component {
+/*class Task extends Component {
     constructor (props){
         super(props);
         this.state = {
@@ -20,30 +13,19 @@ class Task extends Component {
         }
     }
 
-    /*handleTaskStatusChange = event => {
-        this.setState({
-            done: event.target.checked
-        })
-    };
-
-    handleDeleteIconVisibilityChange = () => {
-        this.setState =({
-            hoveredRow: event.target
-        })
-    };*/
-
-
-
     render(){
         return(
             <Table>
             <TableBody>
             <TableRow>
                 <TableCell>
-                    <span>{this.props.label}</span>
+                    <span>{this.props.name}</span>
                 </TableCell>
                 <TableCell>
-                    <span>kkkk</span>
+                    
+                </TableCell>
+                <TableCell>
+                    <span>{this.props.priorityLevel}</span>
                 </TableCell>
                 <TableCell>
                     <Checkbox></Checkbox>
@@ -58,6 +40,6 @@ class Task extends Component {
             </Table>
         )
     }
-}
+}*/
 
 export default Task;

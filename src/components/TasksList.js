@@ -99,49 +99,63 @@ class TasksList extends Component{
         this.state.selected.indexOf(id) !== -1;
     }
 
+    handleChangePage = (event, page) => {
+        this.setState({ page });
+    };
+    handleChangeRowsPerPage = event => {
+        this.setState({
+            rowsPerPage: event.target.value
+        });
+    }; 
+
+
     render(){
         const { classes } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         return(
-            <Paper className={classes.root} elevation={10}>
+            <Paper className={classes.root} elevation={12}>
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table}>
                         <TableHeader
-                            order={order}
-                            orderBy={orderBy}
-                            onRequestSort={this.handleRequestSort}
-                            rowCount={data.length}/>
+                         order={order}
+                         orderBy={orderBy}
+                         onRequestSort={this.handleRequestSort}
+                         rowCount={data.length}
+                        />
                             <TableBody>
-                                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
-                                    const isSelected = this.isSelected(n.id);
+                                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(entry => {
+                                    const isSelected = this.isSelected(entry.id);
                                     return (
                                         <TableRow
-                                            hover
-                                            onClick={event => this.handleClick(event, n.id)}
-                                            aria-checked={isSelected}
-                                            role="checkbox"
-                                            tabIndex={-1}
-                                            key={n.id}
-                                            selected={isSelected}>
-                                            <TableCell padding='default'>{n.name}</TableCell>
-                                            <TableCell padding='default'>{n.priority}</TableCell>
+                                         hover
+                                         onClick={event => this.handleClick(event, entry.id)}
+                                         aria-checked={isSelected}
+                                         role="checkbox"
+                                         tabIndex={-1}
+                                         key={entry.id}
+                                         selected={isSelected}
+                                        >
+                                            <TableCell padding='default'>{entry.name}</TableCell>
+                                            <TableCell padding='default'>{entry.priority}</TableCell>
                                             <TableCell padding="checkbox"><Checkbox checked={isSelected} /></TableCell> 
                                         </TableRow>
                                     );
                                 })}
                                 {emptyRows > 0 && (
-                                    <TableRow style={{height: 49 * emptyRows}}>
+                                    <TableRow style={{ height: 49 * emptyRows }}>
                                         <TableCell colSpan={6}/>
                                     </TableRow>
                                 )}
                             </TableBody>
-                            <Footer data={data}
-                                    page={page}
-                                    rowsPerPage={rowsPerPage}
-                                    onChangePage={this.handleChangePage}
-                                    onChangeRowsPerPage={this.handleChangeRowsPerPage}/>
+                            <Footer 
+                             data={data}
+                             page={page}
+                             rowsPerPage={rowsPerPage}
+                             onChangePage={this.handleChangePage}
+                             onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                            />
                     </Table>
                 </div>
             </Paper>

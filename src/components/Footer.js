@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Table, { TableBody, TableHead, TableFooter, TableCell, TableRow, TableSortLabel, TablePagination } from 'material-ui/Table';
+import { TableFooter, TableRow, TablePagination } from 'material-ui/Table';
   
 class Footer extends Component {
     constructor(props){
@@ -10,33 +10,25 @@ class Footer extends Component {
         };
     }
     
-    handleChangePage = (event, page) => {
-        this.setState({ page });
-    };
-    handleChangeRowsPerPage = event => {
-        this.setState({
-            rowsPerPage: event.target.value
-        });
-    }; 
-
+    
     render(){
-        const {data, rowsPerPage, page} = this.props;
+        const {data, rowsPerPage, page, onChangePage, onChangeRowsPerPage} = this.props;
     return (
         <TableFooter>
             <TableRow>
                 <TablePagination
-                    colSpan={6}
-                    count={data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    backIconButtonProps={{
-                        'aria-label': 'Previous Page',
-                    }}
-                    nextIconButtonProps={{
-                        'aria-label': 'Next Page',
-                    }}
-                    onChangePage={this.handleChangePage}
-                    onChangeRowsPerPage={this.handleChangeRowsPerPage}/>
+                 colSpan={6}
+                 count={data.length}
+                 rowsPerPage={rowsPerPage}
+                 page={page}
+                 backIconButtonProps={{
+                    'aria-label': 'Previous Page',
+                 }}
+                 nextIconButtonProps={{
+                    'aria-label': 'Next Page',
+                 }}
+                 onChangePage={onChangePage}
+                 onChangeRowsPerPage={onChangeRowsPerPage}/>
             </TableRow>
         </TableFooter>
     );

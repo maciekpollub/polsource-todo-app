@@ -14,13 +14,18 @@ import PropTypes from 'prop-types';
 let counter = 0;
 let createData = (name, priority) => {
     counter+=1;
-    return {id: counter, name: name, priority: priority};
+    return {
+        id: counter,
+        name: name, 
+        priority: priority};
   }
 
   const styles = theme => ({
     root: {
-      width: '100%',
-      marginTop: theme.spacing.unit * 3
+      width: '80%',
+      marginTop: theme.spacing.unit * 3,
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
     table: {
       minWidth: 800,
@@ -34,8 +39,8 @@ class TasksList extends Component{
     constructor(props){
         super(props);
         this.state = {
-            order: 'up',
-            orderBy: 'priority',
+            order: 'asc',
+            orderBy: 'name',
             selected: [],
             data: [
                 createData('Task 1', 'Medium'),
@@ -51,15 +56,26 @@ class TasksList extends Component{
     
     handleRequestSort = (event, property) => {
         const orderBy = property;
-        let order = 'down';
-        if (this.state.orderBy === property && this.state.order === 'down'){
-            order = 'up';
+        let order = 'desc';
+        if (this.state.orderBy === property && this.state.order === 'desc'){
+            order = 'asc';
+        };
+        if (property === 'name') {
+            const data = order === 'desc' 
+            ? this.state.data.sort((a,b) => (b[orderBy] < a[orderBy] ? -1 : 1))
+            : this.state.data.sort((a,b) => (a[orderBy] < b[orderBy] ? -1 : 1));
+            this.setState({data: data, order: order, orderBy: orderBy});
+        } else {
+            const data = order === 'desc'
+            ? this.state.data.sort((a,b) => ((b[orderBy] === 'Low' && a[orderBy] === 'Medium') ||
+                                             (b[orderBy] === 'Low' && a[orderBy] === 'High') ||
+                                             (b[orderBy] === 'Medium' && a[orderBy] === 'High') ? -1 : 1 ))
+            : this.state.data.sort((a,b) => ((a[orderBy] === 'Low' && b[orderBy] === 'Medium') ||
+                                             (a[orderBy] === 'Low' && b[orderBy] === 'High') ||
+                                             (a[orderBy] === 'Medium' && b[orderBy] === 'High') ? -1 : 1));   
+            this.setState({data: data, order: order, orderBy: orderBy});                               
         }
-        const data = order === 'down' 
-        ? this.state.data.sort((a,b) => (b[orderBy] < a[orderBy] ? -1 : 1))
-        : this.state.data.sort((a,b) => (a[orderBy] < b[orderBy] ? -1 : 1));
-
-        this.setState({data, order, orderBy});
+        
     };
 
     handleClick = (event, id) => {
@@ -100,14 +116,14 @@ class TasksList extends Component{
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         return(
-            <Paper className = {classes.root}>
+            <Paper className={classes.root} elevation={10}>
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table}>
                         <TableHeader
                             order={order}
                             orderBy={orderBy}
                             onRequestSort={this.handleRequestSort}
-                            rowCount={data.length} />
+                            rowCount={data.length}/>
                             <TableBody>
                                 {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
                                     const isSelected = this.isSelected(n.id);
@@ -119,8 +135,8 @@ class TasksList extends Component{
                                             tabIndex={-1}
                                             key={n.id}
                                             selected={isSelected}>
-                                            <TableCell padding="none">{n.name}</TableCell>
-                                            <TableCell padding="none">{n.priority}</TableCell>
+                                            <TableCell padding='default'>{n.name}</TableCell>
+                                            <TableCell padding='default'>{n.priority}</TableCell>
                                             <TableCell padding="checkbox"><Checkbox checked={isSelected} /></TableCell> 
                                         </TableRow>
                                     )

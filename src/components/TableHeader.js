@@ -6,7 +6,7 @@ import Tooltip from 'material-ui/Tooltip';
 import classNames from 'classnames';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
-
+import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import Checkbox from 'material-ui/Checkbox';
@@ -14,10 +14,19 @@ import Checkbox from 'material-ui/Checkbox';
 
 
 const columnData = [
-    {id:'name', numeric: false, disablePadding: true, label: 'Task'},
+    {id:'name', numeric: false, disablePadding: true, label: 'Task name'},
     {id:'priority', numeric: false, disablePaddnig: true, label: 'Priority'},
     {id: 'done', numeric: false, disablePadding: true, label: 'Done'}
 ];
+
+const styles = {
+    tableHead: {
+    backgroundColor: '#3c423b',
+     },  
+    tableHeadCell: {
+        color: 'white'
+    }
+};
 
 
 class TableHeader extends Component {
@@ -25,19 +34,22 @@ class TableHeader extends Component {
         this.props.onRequestSort(event, property);
     };
 
+    
+
+    
+
     render(){
         const {order, orderBy, rowCount } = this.props;
         return (
-            <TableHead>
+            <TableHead className={this.props.classes.tableHead}>
                 <TableRow>
                     {columnData.map(column => {
                         return(
                             <TableCell 
                                 key={column.id} 
                                 numeric={column.numeric} 
-                                padding={column.disablePadding ? 'none' : 'default'}
+                                className={this.props.classes.tableHeadCell}
                                 sortDirection={orderBy === column.id ? order : false} >
-                            
                                 <Tooltip
                                     title="Sort"
                                     placement={column.numeric ? 'bottom-end': 'bottom-start'}
@@ -45,10 +57,11 @@ class TableHeader extends Component {
                                     <TableSortLabel
                                         active={orderBy === column.id}
                                         direction={order}
+                                        className={this.props.classes.tableHeadCell}
                                         onClick={this.createSortHandler(column.id)}>
                                         {column.label}
                                     </TableSortLabel>    
-                                </Tooltip>
+                                </Tooltip>           
                             </TableCell>
                         );
                     },this)}
@@ -60,7 +73,7 @@ class TableHeader extends Component {
 TableHeader.propTypes = {
     order: PropTypes.string.isRequired,
     onRequestSort: PropTypes.func.isRequired,
-    orederBy: PropTypes.string.isRequired,
+    orderBy: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired,
   };
   
@@ -69,4 +82,4 @@ TableHeader.propTypes = {
   
   
 
-export default TableHeader;
+export default withStyles(styles)(TableHeader);

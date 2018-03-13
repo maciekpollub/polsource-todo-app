@@ -26,7 +26,6 @@ class Container extends Component {
     };
     render() {
         return(<div>
-            <TableHeader /> 
             <Table>
                 <TableBody>
                     <TasksList tasks={this.state.tasks} onDelete={this.handleDeletion} />

@@ -24,8 +24,14 @@ const styles = {
     backgroundColor: '#3c423b',
      },  
     tableHeadCell: {
-        color: 'white'
-    }
+        color: 'white',
+        '&:focus': {
+            color: 'white',
+          },
+        '&:hover': {
+            color: 'white',
+        } 
+    },
 };
 
 

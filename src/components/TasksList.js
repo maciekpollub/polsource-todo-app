@@ -32,8 +32,9 @@ let createData = (name, priority) => {
     },
     tableWrapper: {
       overflow: 'auto', 
-    },
-    });  
+    }
+});
+
 
 class TasksList extends Component{
     constructor(props){

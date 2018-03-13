@@ -4,6 +4,11 @@ body {
   font-family: sans-serif;
 }
 
-* {
-  /*border: 1px solid green;*/
+
+.MuiTableSortLabel-root-58:focus {
+  color: white;
+}
+
+.MuiTableSortLabel-root-58:hover {
+  color: white;
 }

@@ -21,7 +21,7 @@ const columnData = [
 
 const styles = {
     tableHead: {
-    backgroundColor: '#3c423b',
+    backgroundColor: '#3d3927',
      },  
     tableHeadCell: {
         color: 'white',
@@ -39,11 +39,6 @@ class TableHeader extends Component {
     createSortHandler = property => event => {
         this.props.onRequestSort(event, property);
     };
-
-    
-
-    
-
     render(){
         const {order, orderBy, rowCount } = this.props;
         return (
@@ -82,10 +77,4 @@ TableHeader.propTypes = {
     orderBy: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired,
   };
-  
-  
-  
-  
-  
-
 export default withStyles(styles)(TableHeader);

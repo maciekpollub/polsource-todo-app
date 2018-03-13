@@ -119,7 +119,7 @@ let TableToolbar = props => {
 
 TableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
+"  numSelected: PropTypes.number.isRequired,
 };
 
 TableToolbar = withStyles(toolbarStyles)(TableToolbar);

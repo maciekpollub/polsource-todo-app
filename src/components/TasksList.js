@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-/*import Task from './Task';*/
 import Paper from 'material-ui/Paper';
 import TableHeader from './TableHeader';
+import Footer from './Footer';
 import Table, {TableBody, TableHead, TableRow, TableCell, TableSortLabel} from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
-/*const TasksList = (props) => (
-    <Paper> {props.tasks.map((taskName, index) => (<Task key={index} name={taskName[0]} priorityLevel={taskName[1]} onDelete={props.onDelete}/>))}
-    </Paper>
-);*/
 let counter = 0;
 let createData = (name, priority) => {
     counter+=1;
@@ -48,7 +44,9 @@ class TasksList extends Component{
                 createData('Task 2', 'High'),
                 createData('Task 3', 'Low'),
                 createData('Task 4', 'High'),
-                createData('Task 5', 'Medium')
+                createData('Task 5', 'Medium'),
+                createData('Task 6', 'Low'),
+                createData('Task 7', 'High')
             ].sort((a, b) => (a.priority < b.priority ? -1 : 1)),
             page: 0,
             rowsPerPage: 5,
@@ -97,16 +95,6 @@ class TasksList extends Component{
         this.setState({ selected: newSelected });
     };
 
-    handleChangePage = (event, page) => {
-        this.setState({ page });
-    };
-
-    handleChangeRowsPerPage = event => {
-        this.setState({
-            rowsPerPage: event.target.value
-        });
-    };
-
     isSelected = id => {
         this.state.selected.indexOf(id) !== -1;
     }
@@ -130,6 +118,7 @@ class TasksList extends Component{
                                     const isSelected = this.isSelected(n.id);
                                     return (
                                         <TableRow
+                                            hover
                                             onClick={event => this.handleClick(event, n.id)}
                                             aria-checked={isSelected}
                                             role="checkbox"
@@ -140,9 +129,19 @@ class TasksList extends Component{
                                             <TableCell padding='default'>{n.priority}</TableCell>
                                             <TableCell padding="checkbox"><Checkbox checked={isSelected} /></TableCell> 
                                         </TableRow>
-                                    )
+                                    );
                                 })}
+                                {emptyRows > 0 && (
+                                    <TableRow style={{height: 49 * emptyRows}}>
+                                        <TableCell colSpan={6}/>
+                                    </TableRow>
+                                )}
                             </TableBody>
+                            <Footer data={data}
+                                    page={page}
+                                    rowsPerPage={rowsPerPage}
+                                    onChangePage={this.handleChangePage}
+                                    onChangeRowsPerPage={this.handleChangeRowsPerPage}/>
                     </Table>
                 </div>
             </Paper>

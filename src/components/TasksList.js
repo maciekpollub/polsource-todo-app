@@ -6,6 +6,11 @@ import Table, {TableBody, TableHead, TableRow, TableCell, TableSortLabel} from '
 import Checkbox from 'material-ui/Checkbox';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
+import Grid from 'material-ui/Grid';
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import Form from 'material-ui/Form';
+
 
 let counter = 0;
 let createData = (name, priority) => {
@@ -23,6 +28,10 @@ let createData = (name, priority) => {
       marginLeft: 'auto',
       marginRight: 'auto',
     },
+    form: {
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    },
     table: {
       minWidth: 800,
     },
@@ -39,6 +48,8 @@ class TasksList extends Component{
             order: 'asc',
             orderBy: 'name',
             selected: [],
+            task: '',
+            level:'',
             data: [
                 createData('Task 1', 'Medium'),
                 createData('Task 2', 'High'),
@@ -51,6 +62,26 @@ class TasksList extends Component{
             page: 0,
             rowsPerPage: 5,
         };
+    }
+
+    handleTaskChange = (event) => {
+        this.setState({
+            task: event.target.value
+        });
+    }
+
+    handleLevelChange = (event) => {
+        this.setState({
+            level: event.target.value
+        });
+    } 
+
+    handleSubmition = (event) => {
+        this.setState({
+            data: this.state.data.concat(createData(this.state.task,this.state.level)),
+            task: '',
+            level: '' 
+        });
     }
     
     handleRequestSort = (event, property) => {
@@ -115,6 +146,26 @@ class TasksList extends Component{
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         return(
+            <Grid container spacing={24}>
+                <Grid item xs={12} sm={6} className={classes.form}>
+                    <Grid container>
+                        <TextField
+                         id="task"
+                         label="Task"
+                         value={this.state.task}
+                         onChange={this.handleTaskChange}
+                         margin="normal"
+                        />
+                        <TextField
+                         id='level'
+                         label="Priority"
+                         value={this.state.level}
+                         onChange={this.handleLevelChange}
+                         margin="normal"
+                        />   
+                    <Button type="submit" color="primary" onClick={this.handleSubmition}>Add</Button>
+                    </Grid>
+                </Grid>
             <Paper className={classes.root} elevation={12}>
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table}>
@@ -159,6 +210,7 @@ class TasksList extends Component{
                     </Table>
                 </div>
             </Paper>
+        </Grid>    
         )
     }
 

@@ -22,4 +22,4 @@ npm start
 ```
 
 ## Online demo
-Visit: https://maciekpollub.github.io/polsource-todo-app/
+You can see the demo [here.](https://maciekpollub.github.io/polsource-todo-app/)

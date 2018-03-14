@@ -1,12 +1,14 @@
 {
   "name": "polsource-todo-app",
   "version": "0.1.0",
+  "homepage": "http://maciekpollub.github.io/polsource-todo-app/",
   "private": true,
   "dependencies": {
     "@devexpress/dx-react-core": "^1.0.3",
     "@devexpress/dx-react-grid": "^1.0.3",
     "@devexpress/dx-react-grid-material-ui": "^1.0.3",
     "classnames": "^2.2.5",
+    "gh-pages": "^1.1.0",
     "material-ui": "^1.0.0-beta.36",
     "material-ui-icons": "^1.0.0-beta.36",
     "prop-types": "^15.6.1",
@@ -19,6 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   }
 }
